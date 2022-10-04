@@ -13,6 +13,7 @@ const router = express.Router();
 
 router.post('/share/:id',authorize, noSharing,  shareTaskController)
 router.get('/my-tasks',authorize, getUserTaskController)
+router.post('/add-task', authorize, taskCap(3), addTaskController)
 
 router.route('/')
     .get(authorize, getTasksController)
