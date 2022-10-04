@@ -188,7 +188,8 @@ const RegisterComp = () => {
               <div className='auth-container-rhs'>
                   <div className='auth-form'>
                       <h1 className='about-header'>Register</h1>
-                      <form onSubmit={onSubmit} className='form'>
+                         <form onSubmit={onSubmit} className='form'>
+                             {showError.errors[0].message && <span style={{marginBottom: '1rem'}} className='error'>{showError.errors[0].message}</span>}
                           <div className='form-control'>
                               <label htmlFor="email">Email:</label>
                                  <input type="text" name="email" id="email" placeholder='Enter email' value={value.email} onChange={onChange} />

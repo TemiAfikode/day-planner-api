@@ -28,6 +28,7 @@ export function AddTaskModal() {
     const [selectedOption, setSelectedOption] = useState({value: 'usual', label: 'Usual'});
     const [value, setValue] = useState(initialTaskState)
   const [showError, setShowError] = useState(initialErrorState)
+  const [showInfo, setShowInfo] = useState(false)
   
   const { loading, createTask, error, task } = useContext(taskContext)
 
