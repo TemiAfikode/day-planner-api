@@ -21,6 +21,7 @@ module.exports = async function (req, res, next) {
             data: task
         });
     } catch (err) {
+        console.log(err)
         next(err);
     }
 }
