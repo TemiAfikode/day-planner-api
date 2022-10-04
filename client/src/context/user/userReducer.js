@@ -1,10 +1,8 @@
-import { LOAD_USER_FAILED, LOAD_USER_REQUEST, LOAD_USER_SUCCESS, LOGIN_USER_FAILED, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, REGISTER_USER_FAILED, REGISTER_USER_REQUEST, REGISTER_USER_SUCCESS } from './userType';
+import {  LOAD_USER_SUCCESS, LOGIN_USER_SUCCESS, LOGOUT_USER_SUCCESS, REGISTER_USER_SUCCESS, USER_FAILED, USER_REQUEST } from './userType';
 
 export default function (state, action) {
     switch (action.type) {
-        case REGISTER_USER_REQUEST:
-        case LOGIN_USER_REQUEST:
-        case LOAD_USER_REQUEST:
+        case USER_REQUEST:
             return {
                 ...state,
                 loading: true,
@@ -16,11 +14,10 @@ export default function (state, action) {
                 ...state,
                 loading: false,
                 isLoggedIn: true,
-                user: action.payload
+                user: action.payload,
+                validToken: action.payload.token,
             }
-        case REGISTER_USER_FAILED:
-        case LOGIN_USER_FAILED:
-        case LOAD_USER_FAILED:
+        case USER_FAILED:
             return {
                 ...state,
                 loading: false,
@@ -33,6 +30,16 @@ export default function (state, action) {
                 loading: false,
                 isLoggedIn: true,
                 user: action.payload
+            }
+        case LOGOUT_USER_SUCCESS:
+             localStorage.removeItem('accessToken')
+            return {
+                ...state,
+                loading: false,
+                isLoggedIn: false,
+                user: null,
+                isLoggedOut: true,
+                validToken: null,
             }
         default:
             return state;

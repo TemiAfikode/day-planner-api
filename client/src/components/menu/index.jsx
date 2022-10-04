@@ -1,10 +1,23 @@
 import { mdiClock, mdiHome, mdiMenu, mdiPlus, mdiPower } from '@mdi/js'
 import Icon from '@mdi/react'
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import userContext from '../../context/user/userContext'
 import { ADD_TASK_MODAL } from '../../pages/types'
 import './menu.css'
 
 export default function Menu({setModal}) {
+    const navigate = useNavigate()
+
+    const { logoutUser, isLoggedOut } = useContext(userContext)
+    
+    useEffect(() => {
+        if (isLoggedOut) {
+          navigate('/')
+        } 
+    
+    }, [isLoggedOut])
+
   return (
       <div className='menu-item-wrapper'>
           <ul className='menu-item-list'>
@@ -23,7 +36,7 @@ export default function Menu({setModal}) {
               <li>
                   <Icon path={mdiClock} className='menu-icon' /> <h2> Today&apos;s Tasks</h2>
               </li>
-              <li>
+              <li onClick={()=>logoutUser()}>
                   <Icon path={mdiPower} className='menu-icon' /> <h2> Logout</h2>
               </li>
           </ul>
