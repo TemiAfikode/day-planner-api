@@ -113,12 +113,17 @@ button{
   border-radius: 0.5rem;
   cursor: pointer;
 }
-.error{
+.error, .success{
   display: block;
   padding-top: 5px;
   font-size: 12px;
   font-style: italic;
+}
+.error{
   color: var(--red-clr);
+}
+.success{
+  color: var(--green-clr);
 }
 
 @media( max-width: 540px ) {

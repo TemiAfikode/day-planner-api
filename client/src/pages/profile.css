@@ -34,4 +34,19 @@
     background: var(--light-clr);
     box-shadow: 0 10px 10px var(--black-clr);
     border-radius: 1rem;
+    position: relative;
+}
+.close-modal{
+    display: block;
+    background: rgba(0, 0, 0, 0.4);
+    color: var(--gray-clr);
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.close-modal-icon{
+    width: 36px;
+    height: 36px;
 }

@@ -49,11 +49,13 @@ UserSchema.methods.isPassword = async function (password) {
 }
 
 UserSchema.methods.accessToken = function () {
-    return jwt.sign({ user: { id: this._id } }, process.env.JWT_SECRET, {expiresIn:'2h'})
+    return jwt.sign({ user: { id: this._id } }, process.env.JWT_SECRET, {expiresIn:'1d'})
 }
 
 UserSchema.methods.refreshToken = function () {
     return jwt.sign({ user: { id: this._id } }, process.env.JWT_REFRESH_TOKEN, {expiresIn:'30d'})
 }
+
+UserSchema.index({email: 1, firstname:1, lastname:1, createdAt:1, updatedAt:1})
 
 module.exports = mongoose.model('user', UserSchema)

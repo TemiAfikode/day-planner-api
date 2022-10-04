@@ -7,7 +7,7 @@ module.exports = async function (req, res, next) {
         if (!payload.isValid) {
             return res.status(400).send({
                 isSuccessful: false,
-                message: payload.error
+                error: payload.error
             })
         }
         payload.body.createdBy = req.user._id;

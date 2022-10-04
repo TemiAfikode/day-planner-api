@@ -18,7 +18,7 @@ const TaskSchema = new mongoose.Schema({
         required: [true, 'Due date can not be empty'],   
     },
     dueTime: {
-        type: Number,
+        type: String,
         required: [true, 'Due time can not be empty'],
     },
     createdBy: {
@@ -26,9 +26,12 @@ const TaskSchema = new mongoose.Schema({
         ref: 'user',
         required: [true, 'Task creator is not allowed to be empty'],
     },
-    sharedTo: [String]
+    sharedTo: [String],
+    tag: String,
 }, {
     timestamps: true,
 })
+
+TaskSchema.index({task: 1, status:1, dueDate:1, dueTime:1, createdAt:1, updatedAt:1})
 
 module.exports = mongoose.model('task', TaskSchema);

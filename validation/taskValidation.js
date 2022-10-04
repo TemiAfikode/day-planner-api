@@ -4,8 +4,9 @@ module.exports = function (body) {
     const schema = joi.object({
         task: joi.string().min(5).max(150).required(),
         dueDate: joi.date().required(),
-        dueTime: joi.number().required(),
+        dueTime: joi.string().required(),
         status: joi.string().valid('done', 'cancelled', 'pending').default('pending'),
+        tag: joi.string().trim().optional()
     })
 
     const {error,value} = schema.validate(body)

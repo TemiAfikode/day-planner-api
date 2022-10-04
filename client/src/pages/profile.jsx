@@ -7,15 +7,17 @@ import Menu from '../components/menu';
 import { ADD_TASK_MODAL, EDIT_TASK_MODAL, PROCESSING_MODAL } from './types';
 import { AddTaskModal, EditTaskModal, ProcessingModal } from '../components/modal';
 import userContext from '../context/user/userContext';
+import Icon from '@mdi/react';
+import { mdiClose } from '@mdi/js';
 
-const getModalContent = (type, action) => {
+const getModalContent = (type) => {
     switch (type) {
         case ADD_TASK_MODAL:
-            return <AddTaskModal action={action} />
+            return <AddTaskModal />
         case EDIT_TASK_MODAL:
-            return <EditTaskModal action={action} />
+            return <EditTaskModal />
         case PROCESSING_MODAL:
-            return <ProcessingModal action={action} />
+            return <ProcessingModal />
     }
 }
 
@@ -59,7 +61,8 @@ export default function ProfilePage() {
             (<div className='modal'>
               <div className='modal-container'>
                   <div className='modal-content'>
-                      {getModalContent(options.type, modalHandler)}
+                      <button className='close-modal' onClick={()=>modalHandler()}><Icon path={mdiClose} className='close-modal-icon'  /></button>
+                      {getModalContent(options.type )}
                   </div>
               </div>
           </div>)

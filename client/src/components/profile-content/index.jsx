@@ -38,7 +38,7 @@ export default function ProfileContent({setModal}) {
     const [options, setOptions] = useState(optionsState)
     const [optionsFilter, setOptionsFilter] = useState(false)
     const { user, isLoggedIn } = useContext(userContext)
-    const { getTasks, error: taskError, updateTask,  tasks, loading} = useContext(taskContext)
+    const { getTasks, updateTask,  tasks, loading} = useContext(taskContext)
 
     useEffect(() => {
      getTasks()

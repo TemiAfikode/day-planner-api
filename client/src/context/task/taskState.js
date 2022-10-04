@@ -2,7 +2,7 @@ import axios from 'axios';
 import React,{ useReducer } from 'react'
 import TaskContext from './taskContext';
 import taskReducer from './taskReducer'
-import {  GET_USER_TASKS_SUCCESS, TASK_FAILED, TASK_REQUEST, UPDATE_TASK_SUCCESS } from './taskType';
+import {  CREATE_TASK_SUCCESS, GET_USER_TASKS_SUCCESS, TASK_FAILED, TASK_REQUEST, UPDATE_TASK_SUCCESS } from './taskType';
 
 const taskState = props => {
     const initialState = {
@@ -43,6 +43,21 @@ const taskState = props => {
         }
     }
 
+    async function createTask(task) {
+        dispatch({type: TASK_REQUEST})
+        try {
+            const { data } = await axios.post(`http://localhost:9000/api/tasks`, task, { headers: { 'Content-Type': 'application/json' } });
+            
+            if (data.isSuccessful) {
+                dispatch({type: CREATE_TASK_SUCCESS, payload: data})
+            } else {
+                dispatch({type: TASK_FAILED, payload: data})
+            }
+        } catch (error) {
+            dispatch({type: TASK_FAILED, payload: error.response ? error.response.data.error : error.message})
+        }
+    }
+
     return (
         <TaskContext.Provider value={{
             tasks: state.tasks,
@@ -51,6 +66,7 @@ const taskState = props => {
             error: state.error,
             getTasks,
             updateTask,
+            createTask,
         }}>
             {props.children}
         </TaskContext.Provider>

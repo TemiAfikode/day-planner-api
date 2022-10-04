@@ -1,5 +1,5 @@
 
-import {  GET_USER_TASKS_SUCCESS, TASK_FAILED, TASK_REQUEST, UPDATE_TASK_SUCCESS } from './taskType';
+import {  CREATE_TASK_SUCCESS, GET_USER_TASKS_SUCCESS, TASK_FAILED, TASK_REQUEST, UPDATE_TASK_SUCCESS } from './taskType';
 
 export default function (state, action) {
         switch (action.type) {
@@ -31,6 +31,13 @@ export default function (state, action) {
                             return task
                         }
                     })
+                }
+            case CREATE_TASK_SUCCESS:
+                return {
+                    ...state,
+                    loading: false,
+                    tasks: [action.payload.data, ...state.tasks],
+                    task: action.payload,
                 }
         default:
             return state;

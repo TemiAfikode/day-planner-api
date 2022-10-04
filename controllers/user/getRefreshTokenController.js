@@ -29,7 +29,7 @@ module.exports = async function (req, res, next) {
         const refreshToken = user.refreshToken()
 
         res.cookie('planner_auth_token', refreshToken, {
-                maxAge: 1000 * 60 * 60 * 3,
+                maxAge: 1000 * 60 * 60 * 24 * 30,
                 httpOnly: isProd,
                 secure: isProd,
                 path: '/'
