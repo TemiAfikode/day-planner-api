@@ -8,6 +8,7 @@ const userValidation = require('../../validation/userValidation')
 
 module.exports = async function (req, res, next) {
     try {
+        delete req.body.confirmPassword;
         const payload = userValidation(req.body);
         if (!payload.isValid) {
             return res.status(400).send({
