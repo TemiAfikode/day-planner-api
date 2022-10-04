@@ -9,7 +9,9 @@ const mongoValidation = require('./validation/mongoValidation');
 
 dotenv.config()
 
-mongoose.connect(process.env.MONGODB, {
+ const isProd = process.env.NODE_ENV !== 'development'
+
+mongoose.connect(isProd ? process.env.MONGODB_URI : process.env.MONGODB, {
     autoIndex: true,
 }).then(() => { console.log('Connected to MongoDB'); }).catch(() => { console.log('Failed to connect to MongoDB'); });
 
