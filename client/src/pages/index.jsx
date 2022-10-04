@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import ProtectedRoute, { ReversedRoute } from '../components/protectedRoute'
 import userContext from '../context/user/userContext'
@@ -8,7 +8,13 @@ import ProfilePage from './profile'
 import RegisterPage from './register'
 
 export default function MainPage() {
-    const { validToken } = useContext(userContext)
+  const { validToken, loadUser } = useContext(userContext)
+  useEffect(() => {
+    if (localStorage.accessToken) {
+      loadUser()
+    }
+  }, [])
+  
     return (
       <Router>
         <Routes >

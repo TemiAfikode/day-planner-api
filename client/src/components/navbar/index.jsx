@@ -1,7 +1,12 @@
 import React from 'react';
+import { useContext } from 'react';
+import {Link} from 'react-router-dom'
+import userContext from '../../context/user/userContext';
 import './navbar.css';
 
 export default function Navbar() {
+  const { isLoggedIn } = useContext(userContext)
+
   return (
     <nav className='navbar-main'>
         <div className="container nav-container">
@@ -20,7 +25,11 @@ export default function Navbar() {
               </li>
               <li>
                 <a href="#pricing">Pricing</a>
-              </li>
+          </li>
+          {isLoggedIn && <li className='dashboard-link'>
+                <Link to='/dashboard'>Dashboard</Link>
+              </li>}
+              
             </ul>
         </div>
     </nav>

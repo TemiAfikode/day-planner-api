@@ -1,7 +1,7 @@
 import { mdiClock, mdiHome, mdiMenu, mdiPlus, mdiPower } from '@mdi/js'
 import Icon from '@mdi/react'
 import React, { useContext, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import userContext from '../../context/user/userContext'
 import { ADD_TASK_MODAL } from '../../pages/types'
 import './menu.css'
@@ -25,10 +25,10 @@ export default function Menu({setModal}) {
                    <Icon path={mdiMenu} className='menu-icon' /> <h2>Dashboard</h2>
               </li>
               <li>
-                  <a href='/' target='_blank' rel='noreferrer'  >
+                  <Link to='/' >
                       <Icon path={mdiHome} className='menu-icon' />
                       <h2>Home</h2>
-                  </a>
+                  </Link>
               </li>
               <li onClick={()=>setModal(ADD_TASK_MODAL)}>
                    <Icon path={mdiPlus} className='menu-icon' /> <h2> Add Task</h2>
