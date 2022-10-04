@@ -23,6 +23,7 @@ const userState = props => {
         try {
             const { data } = await axiosRequest.post('/users', payload);
             if (data.isSuccessful) {
+                axios.defaults.headers.common["Authorization"] = 'Bearer ' + data.token;
                 dispatch({type: REGISTER_USER_SUCCESS, payload: data})
             } else {
                 dispatch({type: USER_FAILED, payload: data})
@@ -37,6 +38,7 @@ const userState = props => {
         try {
             const { data } = await axiosRequest.post('/users/login', payload);
             if (data.isSuccessful) {
+                axios.defaults.headers.common["Authorization"] = 'Bearer ' + data.token;
                 dispatch({type: LOGIN_USER_SUCCESS, payload: data})
             } else {
                 dispatch({type: USER_FAILED, payload: data})
@@ -65,7 +67,7 @@ const userState = props => {
         try {
             const { data } = await axiosRequest.get('/users/logout');
             if (data.isSuccessful) {
-                dispatch({type: LOGOUT_USER_SUCCESS})
+                dispatch({ type: LOGOUT_USER_SUCCESS })
             } else {
                 dispatch({type: USER_FAILED, payload: data})
             }
