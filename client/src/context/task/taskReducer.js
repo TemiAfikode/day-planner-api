@@ -1,5 +1,5 @@
 
-import {  CREATE_TASK_SUCCESS, GET_USER_TASKS_SUCCESS, TASK_FAILED, TASK_REQUEST, UPDATE_TASK_SUCCESS } from './taskType';
+import {  CLEAR_TASKS, CREATE_TASK_SUCCESS, GET_USER_TASKS_SUCCESS, TASK_FAILED, TASK_REQUEST, UPDATE_TASK_SUCCESS } from './taskType';
 
 export default function (state, action) {
         switch (action.type) {
@@ -38,6 +38,13 @@ export default function (state, action) {
                     loading: false,
                     tasks: [action.payload.data, ...state.tasks],
                     task: action.payload,
+                }
+            case CLEAR_TASKS:
+                return {
+                    ...state,
+                    loading: false,
+                    tasks: [],
+                    task: null,
                 }
         default:
             return state;

@@ -5,6 +5,8 @@ import UserContext from './userContext';
 import userReducer from './userReducer'
 import {  LOAD_USER_SUCCESS, LOGIN_USER_SUCCESS, LOGOUT_USER_SUCCESS, REGISTER_USER_SUCCESS, USER_FAILED, USER_REQUEST } from './userType';
 import axiosRequest from '../../utils/axiosRequest';
+import setAuthToken from '../../utils/setAxiosHeader';
+import { CLEAR_TASKS, GET_USER_TASKS_SUCCESS } from '../task/taskType';
 
 const userState = props => {
     const initialState = {
@@ -13,7 +15,6 @@ const userState = props => {
         error: null,
         isLoggedIn: false,
         isLoggedOut: false,
-        validToken: localStorage.accessToken || null,
     }
     
     const [state, dispatch] = useReducer(userReducer, initialState);
@@ -23,7 +24,7 @@ const userState = props => {
         try {
             const { data } = await axiosRequest.post('/users', payload);
             if (data.isSuccessful) {
-                axios.defaults.headers.common["Authorization"] = 'Bearer ' + data.token;
+                setAuthToken(data.token)
                 dispatch({type: REGISTER_USER_SUCCESS, payload: data})
             } else {
                 dispatch({type: USER_FAILED, payload: data})
@@ -38,7 +39,7 @@ const userState = props => {
         try {
             const { data } = await axiosRequest.post('/users/login', payload);
             if (data.isSuccessful) {
-                axios.defaults.headers.common["Authorization"] = 'Bearer ' + data.token;
+                setAuthToken(data.token)
                 dispatch({type: LOGIN_USER_SUCCESS, payload: data})
             } else {
                 dispatch({type: USER_FAILED, payload: data})
@@ -49,6 +50,7 @@ const userState = props => {
     }
 
     async function loadUser() {
+        setAuthToken(localStorage.accessToken)
         dispatch({type: USER_REQUEST})
         try {
             const { data } = await axiosRequest.get('/users/profile');
@@ -67,6 +69,7 @@ const userState = props => {
         try {
             const { data } = await axiosRequest.get('/users/logout');
             if (data.isSuccessful) {
+                dispatch({ type: CLEAR_TASKS })
                 dispatch({ type: LOGOUT_USER_SUCCESS })
             } else {
                 dispatch({type: USER_FAILED, payload: data})
@@ -83,7 +86,6 @@ const userState = props => {
             error: state.error,
             isLoggedIn: state.isLoggedIn,
             isLoggedOut: state.isLoggedOut,
-            validToken: state.validToken,
             registerUser,
             loginUser,
             loadUser,

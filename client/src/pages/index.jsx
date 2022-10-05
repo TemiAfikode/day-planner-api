@@ -1,35 +1,52 @@
+import { is } from 'date-fns/locale'
 import React, { useContext, useEffect } from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import ProtectedRoute, { ReversedRoute } from '../components/protectedRoute'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
+import taskContext from '../context/task/taskContext'
 import userContext from '../context/user/userContext'
+import Dashboard from './dashboard'
 import LandingPage from './landing-page'
 import LoginPage from './login'
-import ProfilePage from './profile'
 import RegisterPage from './register'
 
 export default function MainPage() {
-  const { validToken, loadUser } = useContext(userContext)
+  const { loadUser, user, loading, isLoggedOut } = useContext(userContext)
+  const { clearTasks } = useContext(taskContext)
   useEffect(() => {
-    if (localStorage.accessToken) {
+    if (!user) {
       loadUser()
     }
   }, [])
+  useEffect(() => {
+    if (isLoggedOut) {
+      clearTasks()
+    }
+  }, [isLoggedOut])
+
+  if (loading) return null;
+
+    const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <LandingPage />
+    },
+    {
+      path: '/dashboard',
+      element: user || localStorage.accessToken ? <Dashboard /> : <Navigate to="/" replace />
+    },
+    {
+      path: '/login',
+      element: user || localStorage.accessToken ? <Navigate to="/dashboard" replace /> : <LoginPage />
+    },
+    {
+      path: '/register',
+      element:  user || localStorage.accessToken ? <Navigate to="/dashboard" replace /> : <RegisterPage />
+    },
+
+  ]
+);
   
     return (
-      <Router>
-        <Routes >
-            <Route index element={<LandingPage />} />
-            <Route element={<ProtectedRoute token={validToken} />}>
-                <Route path='dashboard' element={<ProfilePage />} />
-            </Route>
-                
-            <Route element={<ReversedRoute token={validToken} />}>
-                <Route path='login' element={<LoginPage />} />
-                <Route path='register' element={<RegisterPage />} />
-            </Route>
-                
-        </Routes>
-      </Router>
-  
+      <RouterProvider router={router} />
   )
 }

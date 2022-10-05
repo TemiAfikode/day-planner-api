@@ -26,17 +26,13 @@ const modalState = {
     type: '',
 }
 
-export default function ProfilePage() {
+export default function Dashboard() {
     const [options, setOptions] = useState(modalState)
-
-    
-    const { loading, user, isLoggedIn, loadUser } = useContext(userContext)
-
+    const {user, loadUser, loading } = useContext(userContext)
     useEffect(() => {
-        if (!isLoggedIn) {
+        if (!user) {
           loadUser()
-        }
-    
+        } 
     }, [])
     
 
@@ -47,6 +43,8 @@ export default function ProfilePage() {
     const handleSetContent = (type) => {
         setOptions({open:true, type})
     }
+
+    if(loading || !user) return null
 
   return (
       <div className='profile'>

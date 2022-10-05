@@ -39,7 +39,7 @@ const LoginComp = () => {
             })
       }
     
-    }, [loading, isLoggedIn])
+    }, [isLoggedIn])
     
 
     const onSubmit = (e) => {
@@ -139,7 +139,7 @@ const RegisterComp = () => {
             })
       }
     
-    }, [loading, isLoggedIn])
+    }, [isLoggedIn])
     
 
     const onSubmit = (e) => {

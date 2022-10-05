@@ -14,14 +14,15 @@ export default function (state, action) {
                 ...state,
                 loading: false,
                 isLoggedIn: true,
+                isLoggedOut: false,
                 user: action.payload,
-                validToken: action.payload.token,
             }
         case USER_FAILED:
             return {
                 ...state,
                 loading: false,
                 isLoggedIn: false,
+                isLoggedOut: false,
                 error: action.payload
             }
      case LOAD_USER_SUCCESS:
@@ -29,6 +30,7 @@ export default function (state, action) {
                 ...state,
                 loading: false,
                 isLoggedIn: true,
+                isLoggedOut: false,
                 user: action.payload
             }
         case LOGOUT_USER_SUCCESS:
@@ -37,9 +39,8 @@ export default function (state, action) {
                 ...state,
                 loading: false,
                 isLoggedIn: false,
-                user: null,
                 isLoggedOut: true,
-                validToken: null,
+                user: null,
             }
         default:
             return state;

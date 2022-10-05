@@ -23,7 +23,6 @@ module.exports = async function (req, res, next) {
 
         const verify = jwt.verify(token, process.env.JWT_SECRET)
 
-         
         user = await UserModel.findById({ _id: verify.user.id })
         if (!user) return res.status(404).send({ isSuccessful: false, message: 'Access denied, login required' });
         

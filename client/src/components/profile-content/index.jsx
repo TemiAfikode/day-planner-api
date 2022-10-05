@@ -41,7 +41,7 @@ export default function ProfileContent({setModal}) {
     const { getTasks, updateTask,  tasks, loading} = useContext(taskContext)
 
     useEffect(() => {
-     getTasks()
+     getTasks(user.data._id)
     }, [])
     
 

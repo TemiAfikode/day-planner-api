@@ -12,7 +12,7 @@ const {taskCap, noSharing} = require('../middleware/basicRestrictions');
 const router = express.Router();
 
 router.post('/share/:id',authorize, noSharing,  shareTaskController)
-router.get('/my-tasks',authorize, getUserTaskController)
+router.get('/my-tasks/:id',authorize, getUserTaskController)
 
 router.route('/')
     .get(authorize, getTasksController)
