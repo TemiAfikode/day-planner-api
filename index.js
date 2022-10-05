@@ -1,30 +1,37 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const path = require('path');
+const express = require("express");
+const dotenv = require("dotenv");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const path = require("path");
 
-const userRoutes = require('./routes/userRoutes')
-const taskRoutes = require('./routes/taskRoutes');
-const mongoValidation = require('./validation/mongoValidation');
+const userRoutes = require("./routes/userRoutes");
+const taskRoutes = require("./routes/taskRoutes");
+const mongoValidation = require("./validation/mongoValidation");
 
-dotenv.config()
+dotenv.config();
 
- const isProd = process.env.NODE_ENV !== 'development'
+const isProd = process.env.NODE_ENV !== "development";
 
-mongoose.connect(isProd ? process.env.MONGODB_URI : process.env.MONGODB, {
+mongoose
+  .connect(process.env.MONGODB_URI, {
     autoIndex: true,
-}).then(() => { console.log('Connected to MongoDB'); }).catch(() => { console.log('Failed to connect to MongoDB'); });
+  })
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch(() => {
+    console.log("Failed to connect to MongoDB");
+  });
 
 const app = express();
-app.use(cors('*'))
+app.use(cors("*"));
 
 app.use(express.json());
 
-app.use('/api/users', userRoutes)
-app.use('/api/tasks', taskRoutes)
+app.use("/api/users", userRoutes);
+app.use("/api/tasks", taskRoutes);
 
-app.use('*', mongoValidation)
+app.use("*", mongoValidation);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -36,4 +43,6 @@ if (process.env.NODE_ENV === "production") {
 
 const port = process.env.PORT || 9000;
 
-app.listen(port,() => {console.log("server listening on port " + port);});
+app.listen(port, () => {
+  console.log("server listening on port " + port);
+});
