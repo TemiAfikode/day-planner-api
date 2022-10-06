@@ -1,3 +1,0 @@
-export const ADD_TASK_MODAL = 'ADD_TASK_MODAL';
-export const EDIT_TASK_MODAL = 'EDIT_TASK_MODAL';
-export const PROCESSING_MODAL = 'PROCESSING_MODAL';
