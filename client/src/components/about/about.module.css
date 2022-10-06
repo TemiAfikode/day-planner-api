@@ -6,11 +6,6 @@
     color: var(--light-clr);
 }
 
-.about-header{
-    font-family: 'Roboto Slab', sans-serif;
-    font-weight: 900;
-    font-size: 3.5rem;
-}
 .about-content-wrapper{
     display: flex;
     flex-wrap: nowrap;

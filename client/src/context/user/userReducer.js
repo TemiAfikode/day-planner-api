@@ -1,4 +1,4 @@
-import {  LOAD_USER_SUCCESS, LOGIN_USER_SUCCESS, LOGOUT_USER_SUCCESS, REGISTER_USER_SUCCESS, USER_FAILED, USER_REQUEST } from './userType';
+import {  LOAD_USER_SUCCESS, LOGOUT_USER_SUCCESS, REGISTER_USER_SUCCESS, USER_FAILED, USER_REQUEST } from './userType';
 
 export default function (state, action) {
     switch (action.type) {
@@ -8,8 +8,6 @@ export default function (state, action) {
                 loading: true,
             }
         case REGISTER_USER_SUCCESS:
-        case LOGIN_USER_SUCCESS:
-            localStorage.setItem('accessToken', action.payload.token)
             return {
                 ...state,
                 loading: false,
@@ -34,7 +32,6 @@ export default function (state, action) {
                 user: action.payload
             }
         case LOGOUT_USER_SUCCESS:
-             localStorage.removeItem('accessToken')
             return {
                 ...state,
                 loading: false,

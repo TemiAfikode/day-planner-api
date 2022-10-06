@@ -24,6 +24,7 @@ export default function (state, action) {
                 return {
                     ...state,
                     loading: false,
+                    error:null,
                     tasks: state.tasks.map(task => {
                         if (task._id === action.payload.data._id) {
                             return action.payload.data
@@ -36,6 +37,7 @@ export default function (state, action) {
                 return {
                     ...state,
                     loading: false,
+                    error: null,
                     tasks: [action.payload.data, ...state.tasks],
                     task: action.payload,
                 }
@@ -45,6 +47,7 @@ export default function (state, action) {
                     loading: false,
                     tasks: [],
                     task: null,
+                    error:null
                 }
         default:
             return state;
