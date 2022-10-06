@@ -16,6 +16,10 @@ mongoose.connect(isProd ? process.env.MONGODB_URI : process.env.MONGODB, {
     autoIndex: true,
 }).then(() => { console.log('Connected to MongoDB'); }).catch(() => { console.log('Failed to connect to MongoDB'); });
 
+// mongoose.connect(isProd ? process.env.MONGODB_URI : process.env.MONGODB, {
+//     autoIndex: true,
+// }).then(() => { console.log('Connected to MongoDB'); }).catch(() => { console.log('Failed to connect to MongoDB'); });
+
 const app = express();
 app.use(cors('*'))
 
