@@ -13,7 +13,8 @@ module.exports = {
   },
   env: {
     NEXT_PROD_URL: "https://temi-day-planner.herokuapp.com/api",
-    NEXT_LOCAL_URL: "http://localhost:9000/api"
+    NEXT_LOCAL_URL: "http://localhost:9000/api",
   },
+  distDir: "build",
 };
 
