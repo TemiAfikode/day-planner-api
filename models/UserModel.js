@@ -49,7 +49,7 @@ UserSchema.methods.isPassword = async function (password) {
 }
 
 UserSchema.methods.accessToken = function () {
-    return jwt.sign({ user: { id: this._id } }, process.env.JWT_SECRET, {expiresIn:'1d'})
+    return jwt.sign({ user: { id: this._id } }, process.env.JWT_SECRET, {expiresIn:'30d'})
 }
 
 UserSchema.methods.refreshToken = function () {
