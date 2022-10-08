@@ -32,6 +32,6 @@ const TaskSchema = new mongoose.Schema({
     timestamps: true,
 })
 
-TaskSchema.index({task: 1, status:1, dueDate:1, dueTime:1, createdAt:1, updatedAt:1})
+TaskSchema.index({task: "text", status:1, dueDate:1, dueTime:1, createdAt:1, updatedAt:1})
 
 module.exports = mongoose.model('task', TaskSchema);
